@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_FILES['file']['name'] != '') {
         // Upload file baru
         $target_dir = "uploads/";
-        $file_name = basename($_FILES["file"]["name"]);
+        $file_name = date('Y-m-d-H-i-s') . '-' . rand(1000, 9999) . '-' . basename($_FILES["file"]["name"]);
         $target_file = $target_dir . $file_name;
         $upload_ok = 1;
         $file_type = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -78,6 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $file_name = $file_lama;
     }
 
+    $nama_file_terbaru_final = $target_dir . $file_name;
+
     // Update data dokumen
     $sql_update = "UPDATE dokumen SET
                     no_dokumen = '$no_dokumen',
@@ -85,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     status = '$status',
                     unit_kerja = '$unit_kerja',
                     jenis_file = '$jenis_file',
-                    file = '$file_name'
+                    file = '$nama_file_terbaru_final'
                     WHERE id_dokumen = '$id_dokumen'";
 
     if ($conn->query($sql_update) === TRUE) {
@@ -199,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="file" class="form-label">File</label>
                 <input type="file" class="form-control" id="file" name="file">
                 <small class="form-text text-muted">Kosongkan jika tidak ingin mengganti file.</small>
-                <p>File Lama: <a href="uploads/<?php echo $dokumen['file']; ?>" target="_blank"><?php echo $dokumen['file']; ?></a></p>
+                <p>File Lama: <a href="<?php echo $dokumen['file']; ?>" target="_blank"><?php echo $dokumen['file']; ?></a></p>
             </div>
             <div class="d-flex justify-content-between">
                 <button name="submit" onclick="" type="submit" class="btn btn-primary">Simpan Perubahan</button>
