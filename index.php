@@ -246,7 +246,7 @@ LEFT JOIN status s ON d.status = s.id_status";
                             echo "<td>" . htmlspecialchars($row['nama_dokumen'] ?? '') . "</td>";
                             echo "<td>" . htmlspecialchars($row['nama_unit'] ?? '') . "</td>";
                             echo "<td><button class='btn' style='color: white ;background-color:" . htmlspecialchars($row['warna'] ?? '#000') . ";'>" . htmlspecialchars($row['nama_status'] ?? '') . "</button></td>"; // Mengatur warna teks berdasarkan kolom 'warna'
-                            echo "<td><button class='btn btn-success'>Tampilkan</button></td>";
+                            echo "<td><a target='_blank' href='" . htmlspecialchars($row['file'] ?? '') . "' class='btn btn-success'>Unduh</a></td>";
                             echo "<td>" . htmlspecialchars($row['nama_jenis_file'] ?? '') . "</td>";
                             echo "<td>
                                     <a href='detail-dokumen.php?id=" . $row['id_dokumen'] . "' class='btn btn-info'>Detail</a>
